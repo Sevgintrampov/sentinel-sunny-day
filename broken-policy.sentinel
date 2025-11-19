@@ -1,0 +1,5 @@
+import "tfplan"
+
+# Syntax Error: Missing the closing brace '}' for the main rule
+main = rule {
+  true
