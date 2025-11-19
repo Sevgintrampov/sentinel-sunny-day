@@ -1,4 +1,4 @@
-policy "pass-but-error" {
-  source = "./pass-but-error.sentinel"
+policy "pass-first-then-error" {
+  source = "./pass-first-then-error.sentinel"
   enforcement_level = "hard-mandatory"
 }
