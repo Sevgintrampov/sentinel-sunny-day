@@ -1,6 +1,4 @@
-import "tfplan"
 
-# Simple policy that always passes
 main = rule {
   true
 }
