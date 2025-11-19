@@ -1,4 +1,4 @@
-policy "simulate-error" {
-  source = "./simulate-error.sentinel"
+policy "pass-but-error" {
+  source = "./pass-but-error.sentinel"
   enforcement_level = "hard-mandatory"
 }
