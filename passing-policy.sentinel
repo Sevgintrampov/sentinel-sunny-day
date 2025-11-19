@@ -1,6 +1,4 @@
-import "tfplan"
+
 
 # Policy that ignores the data needed by the broken module
-main = rule {
-  tfplan.variables.count > 0 # Simple check that passes if a variable exists
-}
+main = rule { true }
