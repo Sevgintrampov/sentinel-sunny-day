@@ -1,1 +1,4 @@
-main = rule { true }
+main = rule {
+    # This throws an error and marks the policy as Errored
+    fail("simulated policy runtime error")
+}
