@@ -2,7 +2,7 @@ import "tfplan/v2" as tfplan
 
 reviewresource = filter tfplan.resource_changes as _, resource_changes {
 resource_changes.type is "google_project_iam_binding" and
-resource_changes.mode is "managed" an
+resource_changes.mode is "managed" and
 (resource_changes.change.actions contains "create" or resource_changes.change.actions contains "update")
 }
 
@@ -52,5 +52,5 @@ resources.change.after.role not in ["roles/owner", "roles/viewer"]
 # No está permitida la asignación de roles Owner o Viewer a grupos
 # ----------------------------------------------------------------
 main = rule {
-deny_authoritative_resources and condition_group
+deny_authoritative_resources and condition_groups
 }
