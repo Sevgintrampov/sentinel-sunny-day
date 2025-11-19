@@ -1,5 +1,2 @@
-main = rule { true }  # This will be evaluated first
-
-# A separate rule that references undefined data
-# It is not the main rule, so the policy shows as Passed
-cause_error = rule { input.whatever.bad == true }
+main = rule { true }  
+}
