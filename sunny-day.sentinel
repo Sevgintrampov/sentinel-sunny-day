@@ -1,4 +1,8 @@
-main = rule {
-    # This throws an error and marks the policy as Errored
-    fail("simulated policy runtime error")
-}
+import "sync"
+
+# Rule passes successfully
+main = rule { true }
+
+# Cause a failure *after* rule evaluation
+# This executes post-rule lifecycle in HCP execution
+sync.sleep(-1)
