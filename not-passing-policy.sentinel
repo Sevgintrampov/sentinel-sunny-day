@@ -1,1 +1,3 @@
-main = rule { true }
+# Intentional Syntax Error: Unclosed 'module' block or similar structural issue
+modulex = rule {
+  true
