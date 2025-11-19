@@ -1,3 +1,56 @@
+import "tfplan/v2" as tfplan
+
+reviewresource = filter tfplan.resource_changes as _, resource_changes {
+resource_changes.type is "google_project_iam_binding" and
+resource_changes.mode is "managed" and
+(resource_changes.change.actions contains "create" or resource_changes.change.actions contains "update")
+}
+
+environment = filter tfplan.variables as _, resource {
+resource.name is "environment"
+}
+
+environment_prod = rule {
+environment is not undefined and length(environment) > 0 and all environment as _, env {
+env.value contains "prod"
+}
+}
+
+environment_noprod = rule {
+environment is not undefined and length(environment) > 0 and all environment as _, env {
+env.value not contains "prod"
+}
+}
+
+authoritative_resources = [
+"google_folder_iam_binding",
+"google_folder_iam_policy",
+"google_folder_iam_audit_config",
+"google_organization_iam_policy",
+"google_project_iam_policy",
+"google_project_iam_binding",
+"google_project_iam_audit_config",
+]
+
+authoritative_changes = filter tfplan.resource_changes as _, rc {
+rc.type in authoritative_resources and rc.change.actions contains "create"
+}
+
+deny_authoritative_resources = rule {
+length(authoritative_changes) == 0
+}
+
+condition_group = rule {
+all reviewresource as _, resources {
+resources.change.after.role is not null and
+resources.change.after.role not in ["roles/owner", "roles/viewer"]
+}
+}
+
+# ----------------------------------------------------------------
+# No están permitidos recursos Authoritative
+# No está permitida la asignación de roles Owner o Viewer a grupos
+# ----------------------------------------------------------------
 main = rule {
-  true
+deny_authoritative_resources and condition_group
 }
