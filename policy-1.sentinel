@@ -1,0 +1,2 @@
+# This runs first and succeeds
+main = rule { true }

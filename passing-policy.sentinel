@@ -1,4 +1,0 @@
-
-
-# Policy that ignores the data needed by the broken module
-main = rule { true }
